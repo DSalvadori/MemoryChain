@@ -1,0 +1,35 @@
+{
+  "block_number": 1,
+  "timestamp": "2025-06-14T22:35:52.029566",
+  "document": {
+    "name": "memory-ai-whitepaper-2025.pdf",
+    "type": "whitepaper",
+    "version": "1.0",
+    "hash": {
+      "algorithm": "SHA3-512",
+      "value": "8b449e14363f780bad89ada455c45cb5dded2e00392456c0ea90d6b8135dfd930e1faa326d01b3720fdddaadeb1771574ea2b84fa5daaf38d6d7a175b3415ccc"
+    }
+  },
+  "signature": {
+    "type": "PGP",
+    "signer": "Memory AI Team",
+    "key_id": "MEMORYAI2025",
+    "signature_data": "-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v2.0.22 (GNU/Linux)\n\niQIcBAABAgAGBQJMemoryAISignatureAAoJEMemoryAI2025XYZ123P/9Example\nSignatureDataForMemoryAIWhitepaper2025SHA3512HashValidation\nTWVtb3J5IEFJIFdoaXRlcGFwZXIgMjAyNQpTSEEzLTUxMjogOGI0NDllMTQzNjNm\n=AbCd\n-----END PGP SIGNATURE-----",
+    "timestamp": "2025-06-14T22:35:52.029566"
+  },
+  "metadata": {
+    "description": "Memory AI Whitepaper 2025 - Documento ufficiale",
+    "authors": [
+      "Memory AI Team"
+    ],
+    "license": "CC BY-SA 4.0",
+    "blockchain_integration": {
+      "enabled": true,
+      "network": "MemoryChain",
+      "consensus": "Proof of Memory"
+    }
+  },
+  "previous_hash": "genesis_block",
+  "nonce": 0,
+  "block_hash": "1209f268a76706429288c855a0af191781a57b39a74f8795d51ae3192a8564ae"
+}
