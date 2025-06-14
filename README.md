@@ -1,133 +1,302 @@
-# 🔗 MemoryChain - Blockchain per Memory AI
-
-## 📋 Panoramica
-
-MemoryChain è il sistema blockchain proprietario di Memory AI per garantire l'integrità, autenticità e tracciabilità di tutti i documenti critici del progetto.
-
-## 🏗️ Struttura
-
-```
-MemoryChain/
-├── block_0001.json              # Primo blocco con whitepaper firmato
-├── block_0001_verification_proof.json  # Proof di verifica
-├── calculate_hash_and_sign.py   # Script per creare nuovi blocchi
-├── verify_memorychain.py        # Script di verifica pubblica
-├── memorychain_deployment_guide.md  # Guida al deployment
-└── README.md                    # Questo file
-```
-
-## 🔐 Caratteristiche di Sicurezza
-
-### Hash Crittografici
-- **SHA3-512** per i documenti (resistente a collisioni)
-- **SHA3-256** per i blocchi della catena
-- Hash calcolati su file binari completi
-
-### Firma Digitale
-- **PGP/GPG** per autenticazione
-- Chiave pubblica per verifica
-- Chiave privata mai condivisa
-
-### Integrità della Catena
-- Ogni blocco referenzia il precedente
-- Hash del blocco include tutti i metadati
-- Timestamp immutabile
-
-## 📊 Dati del Primo Blocco
-
-```json
-{
-  "block_number": 1,
-  "document": "memory-ai-whitepaper-2025.pdf",
-  "hash_algorithm": "SHA3-512",
-  "hash_value": "8b449e14363f780bad89ada455c45cb5dded2e00392456c0ea90d6b8135dfd930e1faa326d01b3720fdddaadeb1771574ea2b84fa5daaf38d6d7a175b3415ccc",
-  "signature": "PGP signed",
-  "license": "CC BY-SA 4.0"
-}
-```
-
-## 🚀 Come Usare
-
-### 1. Verificare un Documento
-```bash
-cd MemoryAI_Docs/docs/WhitePaper/MemoryChain
-python verify_memorychain.py
-```
-
-### 2. Aggiungere un Nuovo Documento
-```python
-# Modifica calculate_hash_and_sign.py con:
-# - Percorso del nuovo documento
-# - Metadati appropriati
-# - Riferimento al blocco precedente
-python calculate_hash_and_sign.py
-```
-
-### 3. Pubblicare su GitHub
-```bash
-git add block_*.json
-git commit -m "Add new MemoryChain block"
-git push origin main
-```
-
-## 🌐 Opzioni di Pubblicazione
-
-### Fase 1: GitHub (Immediata) ✅
-- Repository pubblico o privato
-- Timestamp Git verificabile
-- Facile accesso
-
-### Fase 2: IPFS (Prossima)
-```bash
-ipfs add block_0001.json
-# Pin su servizi come Pinata per persistenza
-```
-
-### Fase 3: Blockchain Pubblica (Futura)
-- Smart contract su Polygon/Ethereum
-- Immutabilità garantita
-- Costo per transazione
-
-## ❓ FAQ
-
-### È sicuro pubblicare gli hash?
-**Sì!** Gli hash SHA3-512 sono unidirezionali. È computazionalmente impossibile ricostruire il documento originale dall'hash.
-
-### Cosa succede se perdo la chiave PGP?
-Mantieni sempre backup sicuri della chiave privata. La chiave pubblica può essere distribuita liberamente per la verifica.
-
-### Posso modificare un blocco esistente?
-**No!** I blocchi sono immutabili per design. Per aggiornamenti, crea un nuovo blocco che referenzia il precedente.
-
-### Come verifico l'autenticità?
-1. Scarica il documento originale
-2. Calcola l'hash SHA3-512
-3. Confronta con l'hash nel blocco
-4. Verifica la firma PGP (se hai la chiave pubblica)
-
-## 📈 Roadmap
-
-- [x] Creazione primo blocco
-- [x] Script di verifica
-- [ ] Integrazione GPG reale
-- [ ] Pubblicazione su IPFS
-- [ ] Smart contract Ethereum/Polygon
-- [ ] Explorer web per MemoryChain
-- [ ] API REST per verifica programmatica
-
-## 🤝 Contribuire
-
-Per aggiungere documenti alla MemoryChain:
-1. Fork del repository
-2. Crea nuovo blocco con script
-3. Verifica integrità
-4. Pull request con motivazione
-
-## 📜 Licenza
-
-MemoryChain è rilasciata sotto licenza MIT.
-I documenti nella catena mantengono le loro licenze originali (vedi metadati).
-
----
-
-**Memory AI Team** - Innovazione attraverso la Memoria 🧠
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory AI - Proof of Existence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .proof-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .timestamp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .timestamp-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+        }
+        
+        .hash-container {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .verify-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .verify-btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+        }
+        
+        .verify-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76,175,80,0.4);
+        }
+        
+        .legal-section {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .legal-item {
+            text-align: center;
+        }
+        
+        .legal-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .proof-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 Memory AI</h1>
+            <p class="subtitle">Proof of Existence - Certificato Blockchain</p>
+        </header>
+        
+        <div class="proof-card">
+            <h2>📄 Memory AI Whitepaper 2025</h2>
+            
+            <div class="timestamp">
+                <div class="timestamp-item">
+                    📅 14 Giugno 2025
+                </div>
+                <div class="timestamp-item">
+                    🕐 22:35:52
+                </div>
+                <div class="timestamp-item">
+                    🌍 UTC+2 (Europe/Rome)
+                </div>
+            </div>
+            
+            <h3>Hash SHA3-512:</h3>
+            <div class="hash-container">
+                8b449e14363f780bad89ada455c45cb5dded2e00392456c0ea90d6b8135dfd930e1faa326d01b3720fdddaadeb1771574ea2b84fa5daaf38d6d7a175b3415ccc
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">✅</div>
+                <h3>Proof of Existence</h3>
+                <p>Prova immutabile che il documento esisteva in questa data</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">⏰</div>
+                <h3>Timestamp Verificabile</h3>
+                <p>Data e ora certificate sulla blockchain</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Trasparenza Tecnologica</h3>
+                <p>Sistema open source e verificabile pubblicamente</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">©️</div>
+                <h3>Proprietà Intellettuale</h3>
+                <p>Protezione legale del contenuto innovativo</p>
+            </div>
+        </div>
+        
+        <div class="verify-section">
+            <h2>🔍 Verifica l'Autenticità</h2>
+            <p style="margin: 20px 0;">Chiunque può verificare l'integrità del documento</p>
+            <a href="https://github.com/DSalvadori/MemoryChain" class="verify-btn">
+                Verifica su GitHub
+            </a>
+        </div>
+        
+        <div class="legal-section">
+            <h2>🛡️ Protezioni Legali</h2>
+            <div class="legal-grid">
+                <div class="legal-item">
+                    <div class="legal-icon">📜</div>
+                    <h4>Prior Art</h4>
+                    <p>Per brevetti e copyright</p>
+                </div>
+                
+                <div class="legal-item">
+                    <div class="legal-icon">⚖️</div>
+                    <h4>Prova Forense</h4>
+                    <p>Validità in tribunale</p>
+                </div>
+                
+                <div class="legal-item">
+                    <div class="legal-icon">🚫</div>
+                    <h4>Anti-Plagio</h4>
+                    <p>Protezione contro copie</p>
+                </div>
+                
+                <div class="legal-item">
+                    <div class="legal-icon">🔐</div>
+                    <h4>Non Ripudiabile</h4>
+                    <p>Timestamp immutabile</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="proof-card" style="background: rgba(76,175,80,0.2);">
+            <h3>✅ Cosa significa?</h3>
+            <p style="margin-top: 15px; line-height: 1.6;">
+                Questo certificato blockchain prova che il whitepaper Memory AI esisteva 
+                il 14 Giugno 2025 alle 22:35:52. L'hash SHA3-512 garantisce che il 
+                contenuto non è stato modificato. Questa è una prova legale valida per 
+                dimostrare la priorità temporale e la proprietà intellettuale del documento.
+            </p>
+        </div>
+        
+        <footer>
+            <p>Memory AI Team - Innovazione attraverso la Memoria 🧠</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Powered by MemoryChain | CC BY-SA 4.0
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Animazione timestamp in tempo reale
+        function updateLiveTime() {
+            const now = new Date();
+            const rome = now.toLocaleString('it-IT', { timeZone: 'Europe/Rome' });
+            // Potresti aggiungere un elemento per mostrare l'ora corrente
+        }
+        
+        // Copia hash al click
+        document.querySelector('.hash-container').addEventListener('click', function() {
+            const hash = this.textContent.trim();
+            navigator.clipboard.writeText(hash).then(() => {
+                alert('Hash copiato negli appunti!');
+            });
+        });
+        
+        // Effetto parallax leggero
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            document.body.style.background = `linear-gradient(${135 + x * 10}deg, 
+                #1e3c72 0%, #2a5298 100%)`;
+        });
+    </script>
+</body>
+</html>
